@@ -9,6 +9,7 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
 const User = require("../../models/User");
+const UserPost = require("../../models/UserPosts");
 
 router.post("/register", (req, res) => {
 
@@ -83,6 +84,20 @@ router.post("/login", (req, res) => {
       }
     });
   });
+});
+
+router.post("/create-post", (req, res) => {
+
+  const { errors, isValid } = validateRegisterInput(req.body);
+  if(req.body.post.length() <=0 ){
+    
+    return res.status(400).json(errors);
+  }
+      
+  const newPost = new Post({
+        post: req.body.post
+      });
+      newPost.save();
 });
 
 module.exports = router;

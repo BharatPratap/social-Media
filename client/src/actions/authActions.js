@@ -32,6 +32,19 @@ export const loginUser = userData => dispatch => {
       })
     );
 };
+export const createPost = postData => dispatch => {
+  axios
+    .post("/api/create-post", postData)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
 
 export const setCurrentUser = decoded => {
   return {
